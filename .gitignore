@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.pyc
+
+# Environment
+.env
+.venv/
+venv/
+
+# SQLite database
+tasks.db
+
+# IDE
+.idea/
+.vscode/
+
+# Local test scripts
+test_proxy.py
