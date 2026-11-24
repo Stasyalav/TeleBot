@@ -5,8 +5,9 @@ import logging
 
 from aiogram import Bot, Dispatcher
 from aiogram.client.session.aiohttp import AiohttpSession
+from aiogram.fsm.storage.memory import MemoryStorage
 
-from config import BOT_TOKEN
+from config import BOT_TOKEN, PROXY_URL
 from db import init_db
 from handlers import start_router, tasks_router
 
@@ -19,10 +20,12 @@ async def main() -> None:
 
     init_db()
 
-    session = AiohttpSession(proxy="socks5://127.0.0.1:10808")
+    # Прокси необязателен: если PROXY_URL не задан, работаем напрямую.
+    session = AiohttpSession(proxy=PROXY_URL) if PROXY_URL else AiohttpSession()
     bot = Bot(token=BOT_TOKEN, session=session)
 
-    dp = Dispatcher()
+    # Хранилище нужно для пошагового ввода задачи после команды /add.
+    dp = Dispatcher(storage=MemoryStorage())
     dp.include_router(start_router)
     dp.include_router(tasks_router)
 

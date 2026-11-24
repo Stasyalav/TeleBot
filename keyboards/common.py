@@ -11,7 +11,7 @@ def main_keyboard() -> ReplyKeyboardMarkup:
     return ReplyKeyboardMarkup(
         keyboard=[
             [KeyboardButton(text="/add"), KeyboardButton(text="/list")],
-            [KeyboardButton(text="/list_csv")],
+            [KeyboardButton(text="/list_csv"), KeyboardButton(text="/cancel")],
         ],
         resize_keyboard=True,
         input_field_placeholder="Выберите команду или введите /add текст задачи",
